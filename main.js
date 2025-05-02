@@ -13,8 +13,11 @@ const cors = require("cors");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({
+    origin: "*", // Or a specific domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));  
 
 
 const port = process.env.PORT || 4000
