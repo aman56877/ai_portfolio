@@ -11,4 +11,11 @@ router.post("/createNewProject", upload.fields([
 ]), adminAuth, ProjectController.createNewProject);
 
 
+router.post("/updateProject/:token", upload.fields([
+    { name: "projectImage", maxCount: 1 },
+    { name: "projectVideo", maxCount: 1 }
+]), adminAuth, ProjectController.updateProject);
+
+router.post("/deleteProject/:token", adminAuth, ProjectController.deleteProject);
+
 module.exports = router;
