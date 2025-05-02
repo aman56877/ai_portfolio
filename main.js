@@ -22,6 +22,8 @@ app.listen(port, () => console.log(`Example app listening on port http://localho
 
 app.use("", require("./routes/getRoutes"));
 app.use("/post/", require("./routes/postRoutes"));
+app.use("/admin/", require("./routes/adminRoutes"));
+
 
 
 // database connection
