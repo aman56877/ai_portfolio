@@ -9,11 +9,10 @@ exports.createNewProject = async (req, res) => {
             projectName,
             projectDescription,
             projectImage,
-            projectLink,
             projectVideo,
         } = req.body;
         const token = uuidv4();
-        const requiredFields = ["projectName", "projectDescription", "projectLink"];
+        const requiredFields = ["projectName", "projectDescription"];
         const errors = [];
 
         requiredFields.forEach((field) => {
@@ -39,7 +38,6 @@ exports.createNewProject = async (req, res) => {
             const newProject = new Project({
                 projectName: projectName,
                 projectDescription: projectDescription,
-                projectLink: projectLink,
                 projectImage: imagePath,
                 projectVideo: videoPath,
                 token: token,
@@ -59,7 +57,7 @@ exports.createNewProject = async (req, res) => {
 exports.updateProject = async (req, res) => {
     try {
         const { token } = req.params;
-        const { projectName, projectDescription, projectLink } = req.body;
+        const { projectName, projectDescription, } = req.body;
 
         const imageFile = req.files["projectImage"]?.[0];
         const videoFile = req.files["projectVideo"]?.[0];
@@ -107,7 +105,6 @@ exports.updateProject = async (req, res) => {
         const updateFields = {
             projectName,
             projectDescription,
-            projectLink,
         };
 
         // Only set new image or video if a new one was uploaded
@@ -180,3 +177,14 @@ exports.deleteProject = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.getAllProjects = async (req, res) => {
+    try {
+        const projects = await Project.find({});
+        return res.status(200).json({ projects });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+

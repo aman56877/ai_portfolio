@@ -17,10 +17,6 @@ const ProjectSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
-    projectLink: {
-        type: String,
-        required: true,
-    },
     token: {
         type: String,
         required: true,
